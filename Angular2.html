@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<meta charset="UTF-8">
+<script type="text/javascript" src="angular.min.js"></script>
+<head><title>Angular js Crud Application</title>
+</head>
+<body ng-controller="mycon">
+<table cellpadding="2" cellspacing="2" border="1">
+	<tr>
+		<th>Id</th>
+		<th>Name</th>
+		<th>Price</th>
+		<th>Quantity</th>
+		<th>Option</th>
+	</tr>
+	<tr ng-repeat="product in person">
+		<td>{{product.id}}</td>
+		<td>{{product.name}}</td>
+		<td>{{product.price}}</td>
+		<td>{{product.quantity}}</td>
+		<td><a href="#" ng-click="edit(product.id)">Edit</a> |
+			<a href="#" ng-click="delete(product.id)">Delete</a></td>
+	</tr>
+</table>
+<table cellpadding="2" cellspacing="2">
+	<tr><h3>Persional Information</h3></tr>
+	<tr>
+		<td>id</td>
+		<td><input type="text" ng-model="id"></td>
+	</tr>
+	<tr>
+		<td>Name</td>
+		<td><input type="text" ng-model="name"></td>
+	</tr>
+	<tr>
+		<td>Price</td>
+		<td><input type="text" ng-model="price"></td>
+	</tr>
+	<tr>
+		<td>Quantity</td>
+		<td><input type="text" ng-model="quantity"></td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td><input type="button" ng-click="add(id)" value="Add">
+			<input type="button" ng-click="Update(id)" value="Update"></td>
+	</tr>
+
+</table>
+
+<script>
+	var application = angular.module('myapp',[]);
+	application.controller('mycon',function($scope)
+	{
+		$scope.person = [
+			{id:'p1',name:'product1',price:'1000',quantity:'20'},
+			{id:'p2',name:'product2',price:'2000',quantity:'20'},
+			{id:'p3',name:'product3',price:'3000',quantity:'20'},
+			{id:'p4',name:'product4',price:'4000',quantity:'20'},
+			{id:'p5',name:'product5',price:'5000',quantity:'20'}
+		];
+		$scope.delete = function(id)
+		{
+			var index = getSelectedIndex(id);
+			$scope.person.splice(index,1);
+		};
+		function getSelectedIndex(id)
+		{
+			for(i = 0 ; i<$scope.person.length ;i++)
+			
+				if ($scope.person[i].id == id) {
+					return i;
+				};
+				return -1;
+			
+		};
+		$scope.edit = function(id)
+		{
+           var index =getSelectedIndex(id);
+           var produce=$scope.person[index];
+           $scope.id=produce.id;
+           $scope.name=produce.name;
+           $scope.price=produce.price;
+           $scope.quantity=produce.quantity;
+
+		};
+
+		$scope.add = function(id)
+		{
+			$scope.person.push({
+				id:$scope.id, name:$scope.name, price:$scope.price, quantity:$scope.quantity
+			});
+		};
+		$scope.Update = function(id)
+		{
+			var index =getSelectedIndex($scope.id);
+			$scope.person[index].name=$scope.name;
+			$scope.person[index].price=$scope.price;
+			$scope.person[index].quantity=$scope.quantity;
+
+		};
+	});
+
+</script>
+</body>	
+</html>

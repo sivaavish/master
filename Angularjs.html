@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+<script type="text/javascript" src="angular.min.js"></script>
+<script type="text/javascript" src="controller.js"></script>
+</head>
+<body ng-app="mylan">
+<div ng-controller="people">
+<ul>
+<h2>Json Values</h2>
+
+<li ng-repeat="person in persons">
+ {{person.Name + ':' + person.Age}}
+
+</li>
+
+</ul>
+
+</div>
+</body>
+</html>

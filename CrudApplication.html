@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="mylan">
+<head>
+  <meta charset="UTF-8">
+<script type="text/javascript" src="angular.min.js"></script>
+</head>
+<body ng-controller="mycon">
+
+   
+   <table cellpadding="2" cellspacing="2" border="1">
+   		<tr>
+   			<th>id</th>
+   			<th>Name</th>
+   			<th>Price</th>
+   			<th>Quantity</th>
+   			<th>Option</th>
+   		</tr>
+   		<tr ng-repeat="person in listProduct">
+   			<td>{{person.id}}</td>
+   			<td>{{person.name}}</td>
+   			<td>{{person.price}}</td>
+   			<td>{{person.quantity}}</td>
+   			<td><a href="#" ng-click="del(person.id)">Delete</a> | 
+   				<a href="#" ng-click="editSelect(person.id)">Edit</a></td>
+   		</tr>
+   		</table>
+   		 <table cellpadding="2" cellspacing="2">
+	   		<tr><h2>Product Information</h2></tr>
+	   		<tr>
+	   			<td>id :</td>
+	   			<td><input type="text" ng-model="id"></td>
+	   		</tr>
+	   		<tr>
+	   			<td>Name :</td>
+	   			<td><input type="text" ng-model="name"></td>
+	   		</tr>
+	   		<tr>
+	   			<td>Price :</td>
+	   			<td><input type="text" ng-model="price"></td>
+	   		</tr>
+	   		<tr>
+	   			<td>Quantity :</td>
+	   			<td><input type="text" ng-model="quantity"></td>
+	   		</tr>
+	   		<tr>
+	   			<td>&nbsp;</td>
+	   			<td><input type="button" ng-click="add(person.id)" value="Add">
+	   			<input type="button" value="Save" ng-click="save(person.id)">
+	   			</td>
+	   		</tr>
+        </table> 
+
+
+</body>
+<script >
+	var application = angular.module('mylan',[]);
+	application.controller('mycon',function($scope){
+
+		$scope.listProduct=[
+
+			{id:'p1', name:'product1', price:1000, quantity:20},
+			{id:'p2', name:'product2', price:2000, quantity:20},
+			{id:'p3', name:'product3', price:3000, quantity:20},
+			{id:'p4', name:'product4', price:4000, quantity:20},
+			{id:'p5', name:'product5', price:5000, quantity:20}
+		];
+		function getSelectedIndex(id)
+		{
+			for(i=0;i<$scope.listProduct.length;i++)
+				if ($scope.listProduct[i].id == id)
+				{
+					console.log('hello'+$scope.listProduct[i].id)
+                  	return i;
+				};
+				return -1;
+		};
+		$scope.del = function(id)
+		{
+			var result = confirm('Are you sure');
+			if (result == true)
+			 {
+			 	var index = getSelectedIndex(id);
+       			$scope.listProduct.splice(index,1);
+			 };      		
+		};
+		$scope.editSelect = function(id)
+		{
+			var index = getSelectedIndex(id);
+			var product = $scope.listProduct[index];
+			$scope.id = product.id;
+			$scope.name = product.name;
+			$scope.price = product.price;
+			$scope.quantity = product.quantity;
+
+		};
+		$scope.add = function(id)
+		{
+			$scope.listProduct.push({
+				id:$scope.id, name:$scope.name, price:$scope.price, quantity:$scope.quantity
+			});
+			$scope.id='';
+			$scope.name='';
+			$scope.price='';
+			$scope.quantity='';
+		};
+		$scope.save = function()
+		{
+			var index = getSelectedIndex($scope.id);
+			$scope.listProduct[index].name = $scope.name;
+			$scope.listProduct[index].price = $scope.price;
+			$scope.listProduct[index].quantity = $scope.quantity;			
+		}
+	});
+
+
+
+
+</script>
+</html>

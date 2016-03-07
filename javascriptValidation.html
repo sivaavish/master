@@ -1,0 +1,29 @@
+<!Doctype html>
+<html>
+<head>
+	<script type="text/javascript">
+	function Validation()
+	{
+		alert("Helllllllllloooooooooo");
+		var user;
+		var pass;
+		user=document.myForm.username.value;
+
+		if(user ! = "")
+		{
+		  alert("Hello"+user);
+		}
+
+	}
+	</script>
+
+
+</head>
+<body>
+<form name="myForm" >
+<div>User Name :<input type="text" name="username"></div>
+<div>PassWord  :<input type="text" name="password"></div>
+<div><input type="submit" value="click me" onclick="Validation();" ></div>
+</form>
+</body>
+</html>
